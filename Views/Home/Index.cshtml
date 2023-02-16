@@ -1,0 +1,86 @@
+﻿@model IEnumerable<MVC_FirstPracticeCRUD.Models.Contact>
+@{
+    ViewData["Title"] = "Contact List";
+}
+
+<h1 class="text-center">Contact List</h1>
+<div class="row">
+    <div class="offset-9 col-3 mb-3">
+        <a asp-action="create" asp-controller="home" class="btn btn-primary"><i class="bi bi-file-plus-fill"> </i>Create New</a>
+    </div>
+</div>
+<div class="row">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h3 class="text-white"><strong>User List</strong></h3>
+
+            </div>
+            <div class="card body">
+                <div class="table-responsive">
+                    @if (Model.Count() > 0)
+                    {
+                        <table class="table table-bordered" id="tblUsersTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr> 
+                                    <th>@Html.DisplayNameFor(m => m.Id) </th>
+                                    <th>@Html.DisplayNameFor(m => m.Name) </th>
+                                    <th>@Html.DisplayNameFor(m => m.Email) </th>
+                                    <th>@Html.DisplayNameFor(m => m.Phone) </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(m =>item.Id)</td>
+                                        <td>@Html.DisplayFor(m =>item.Name)</td>
+                                        <td>@Html.DisplayFor(m =>item.Email)</td>
+                                        <td>@Html.DisplayFor(m =>item.Phone)</td>
+                                        <td>
+                                            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                            <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-info-circle-fill"> </i>Details</a>
+                                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-file-eraser-fill"> </i>Delete</a>
+                                        </td>
+                                    </tr>
+                                    
+                                }
+                            </tbody>
+                        </table>
+                    }else{
+                        <h1 class="text-center">There's not register yet</h1>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#tblUsersTable').DataTable(){
+                language:{
+                    decimal:"";
+                    emptyTable: "No data available in table";
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries";
+                    infoEmpty: "Showing 0 to 0 of 0 entries";
+                    infoFiltered: "(filtered from _MAX_ total entries)";
+                    infoPostFix: "";
+                    thousands: ",";
+                    lengthMenu: "Show _MENU_ entries";
+                    loadingRecords: "Loading...";
+                    processing: "Processing...";
+                    search: "Search:";
+                    zeroRecords: "No matching records found";
+                    paginate: {
+                        first: "First",
+                            last: "Last",
+                                next: "Next",
+                                    previous: "Previous"
+                    },
+                }
+            };
+        });
+    </script>
+}
